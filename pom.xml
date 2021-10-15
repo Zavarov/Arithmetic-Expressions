@@ -160,6 +160,16 @@
         </pluginRepository>
     </pluginRepositories>
 
+    <!-- == GitHub Repositories =========================================== -->
+
+    <distributionManagement>
+        <repository>
+            <id>github</id>
+            <name>GitHub Zavarov Apache Maven Packages</name>
+            <url>https://maven.pkg.github.com/zavarov/arithmetic-expressions</url>
+        </repository>
+    </distributionManagement>
+
     <!-- == Maven Plugins =========================================== -->
 
     <build>
