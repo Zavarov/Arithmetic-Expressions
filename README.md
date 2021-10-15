@@ -36,5 +36,5 @@ mvn clean install
 
 ## License
 
-This project is licensed under the GPLv3 License - see the [LICENSE](src/main/resources/META-INF/LICENSE) file for details.
+This project is licensed under the GPLv3 License - see the [LICENSE](LICENSE) file for details.
 
