@@ -213,6 +213,20 @@
         </plugins>
         <pluginManagement>
             <plugins>
+                <!-- Create classes jar -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-jar-plugin</artifactId>
+                    <version>${maven-jar-plugin.version}</version>
+                    <configuration>
+                        <archive>
+                            <manifest>
+                                <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+                                <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
+                            </manifest>
+                        </archive>
+                    </configuration>
+                </plugin>
                 <!-- Grammars -->
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
