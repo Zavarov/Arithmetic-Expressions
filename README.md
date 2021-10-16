@@ -2,7 +2,7 @@
 
 # Arithmetic Expressions
 
-A project for evaluation mathematical expressions via MontiCore. It is MontiCore derivative which extends the Expression
+A project for evaluation mathematical expressions via MontiCore. It is a MontiCore derivative which extends the Expression
 grammar with mathematical constants and functions. 
 
 ### Getting started
