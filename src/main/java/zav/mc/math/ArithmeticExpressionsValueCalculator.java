@@ -31,10 +31,10 @@ import zav.mc.math.internal.calculator.NumberValueCalculator;
 /**
  * Evaluates the numerical value of an arithmetic expression.
  */
-public class ArithmeticExpressionValueCalculator extends MathTraverserImplementation {
+public class ArithmeticExpressionsValueCalculator extends MathTraverserImplementation {
   private final Map<ASTNode, BigDecimal> values = new HashMap<>();
   
-  private ArithmeticExpressionValueCalculator() {
+  private ArithmeticExpressionsValueCalculator() {
     FunctionValueCalculator arithmeticExpressions =
           new FunctionValueCalculator(values);
     add4Math(arithmeticExpressions);
@@ -66,7 +66,7 @@ public class ArithmeticExpressionValueCalculator extends MathTraverserImplementa
    */
   public static Optional<BigDecimal> valueOf(ASTExpression expression) {
     try {
-      ArithmeticExpressionValueCalculator calculator = new ArithmeticExpressionValueCalculator();
+      ArithmeticExpressionsValueCalculator calculator = new ArithmeticExpressionsValueCalculator();
       expression.accept(calculator);
       return calculator.getValue(expression);
     } catch (IllegalArgumentException e) {
