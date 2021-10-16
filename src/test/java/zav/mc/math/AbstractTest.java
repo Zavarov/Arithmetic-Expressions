@@ -24,21 +24,33 @@ import java.math.BigDecimal;
 import java.util.Optional;
 import zav.mc.math._parser.MathParser;
 
+/**
+ * Base test class for all test.<br>
+ * Provides static methods for transforming strings into expressions.
+ */
 public abstract class AbstractTest {
+  /**
+   * Creates the abstract syntax tree of an arithmetic expression.
+   *
+   * @param expression A string representation of an arithmetic expression.
+   * @return The syntax tree corresponding to the arithmetic expression.
+   */
   public static ASTExpression parse(String expression) {
     try {
       MathParser parser = new MathParser();
 
       Optional<ASTExpression> optional = parser.parse_String(expression);
-      if(parser.hasErrors())
-          throw new IllegalArgumentException();
+      if (parser.hasErrors()) {
+        throw new IllegalArgumentException();
+      }
       //fail("The parser encountered errors while parsing "+expression);
-      if(optional.isEmpty())
-          throw new IllegalArgumentException();
+      if (optional.isEmpty()) {
+        throw new IllegalArgumentException();
+      }
       //fail("The expression couldn't be parsed");
 
       return optional.get();
-    } catch(IOException e) {
+    } catch (IOException e) {
       //fail(e.getMessage());
       //return null;
       throw new IllegalArgumentException();
@@ -48,7 +60,13 @@ public abstract class AbstractTest {
   public static Optional<BigDecimal> valueOfOpt(String expression) {
     return ArithmeticExpressionsValueCalculator.valueOf(parse(expression));
   }
-
+  
+  /**
+   * Calculates the numerical value of an expression.
+   *
+   * @param expression A string representation of an arithmetic expression.
+   * @return The numerical value of the provided expressions.
+   */
   public static BigDecimal valueOf(String expression) {
     Optional<BigDecimal> valueOpt = valueOfOpt(expression);
     assertThat(valueOpt).isPresent();

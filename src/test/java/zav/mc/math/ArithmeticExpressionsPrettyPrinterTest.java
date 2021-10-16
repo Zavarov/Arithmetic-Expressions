@@ -25,6 +25,9 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
+/**
+ * Test class for transforming the AST back into a human-readable string.
+ */
 public class ArithmeticExpressionsPrettyPrinterTest extends AbstractTest {
   public ArithmeticExpressionsPrettyPrinter prettyPrinter;
 
@@ -33,16 +36,22 @@ public class ArithmeticExpressionsPrettyPrinterTest extends AbstractTest {
     IndentPrinter printer = new IndentPrinter();
     prettyPrinter = new ArithmeticExpressionsPrettyPrinter(printer);
   }
-
+  
+  /**
+   * Tests whether the result of the pretty printer matches the input.<br>
+   * Arguments are provided via {@code ValueSource}.
+   *
+   * @param argument An arithmetic expression.
+   */
   @ParameterizedTest
   @ValueSource(strings = {
-        "sin(pi)",
-        "cos(-1.234)",
-        "1 ^ 3",
-        "cos(-1)",
-        "cos(-1L)",
-        "cos(-1.234F)",
-        "cos(-1.234)"
+      "sin(pi)",
+      "cos(-1.234)",
+      "1 ^ 3",
+      "cos(-1)",
+      "cos(-1L)",
+      "cos(-1.234F)",
+      "cos(-1.234)"
   })
   public void testPrettyPrintFunction(String argument) {
     ASTExpression expression = parse(argument);

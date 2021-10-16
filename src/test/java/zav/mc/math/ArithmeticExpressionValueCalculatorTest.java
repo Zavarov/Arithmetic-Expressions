@@ -28,12 +28,25 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.jupiter.params.provider.ValueSource;
 
-public class FunctionValueCalculatorTest extends AbstractTest {
+/**
+ * Test class for validating the numerical value of an arithmetic expression.
+ * Tests for valid and invalid expressions have been split into two nested classes.
+ */
+public class ArithmeticExpressionValueCalculatorTest extends AbstractTest {
   private static final Percentage precision = Percentage.withPercentage(10e-15);
-
+  
+  /**
+   * Test class to validate that the value of an arithmetic expression matches the input.
+   */
   @Nested
   @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-  public class FunctionValueCalculator {
+  public class ArithmeticExpressionsValidValueCalculator {
+    /**
+     * Calculates the numerical value and compares it to the expected value.<br>
+     * Arguments are provided via {@link #getArguments()}.
+     *
+     * @param argument A key value pair of arithmetic expression and expected value.
+     */
     @ParameterizedTest
     @MethodSource("getArguments")
     public void testExpression(Pair<String, ? extends Number> argument) {
@@ -62,13 +75,13 @@ public class FunctionValueCalculatorTest extends AbstractTest {
             Pair.of("abs(1.0)", Math.abs(-1)),
             Pair.of("random(1,1)", 1),
             Pair.of("2^3", Math.pow(2, 3)),
-            Pair.of("7-3.33", 7-3.33),
-            Pair.of("7+3.33", 7+3.33),
-            Pair.of("5%3", 5%3),
+            Pair.of("7-3.33", 7 - 3.33),
+            Pair.of("7+3.33", 7 + 3.33),
+            Pair.of("5%3", 5 % 3),
             Pair.of("3/2", 1.5),
             Pair.of("3/2.0", 1.5),
             Pair.of("3.0/2", 1.5),
-            Pair.of("1.5*3", 1.5*3),
+            Pair.of("1.5*3", 1.5 * 3),
             Pair.of("e", Math.E),
             Pair.of("pi", Math.PI),
             Pair.of("1.0", 1.0),
@@ -80,41 +93,45 @@ public class FunctionValueCalculatorTest extends AbstractTest {
             Pair.of("1L", 1),
             Pair.of("-1L", -1),
             Pair.of("sin(e)^pi", Math.pow(Math.sin(Math.E), Math.PI)),
-            Pair.of("sin(e)+cos(e)", Math.sin(Math.E)+Math.cos(Math.E))
+            Pair.of("sin(e)+cos(e)", Math.sin(Math.E) + Math.cos(Math.E))
       );
     }
   }
-
+  
+  /**
+   * Test class to make sure that invalid expressions are rejected.<br>
+   * Examples are unknown tokens or number that exceed the supported range.
+   */
   @Nested
   public class ArithmeticExpressionsInvalidValueCalculator {
     @ParameterizedTest
     @ValueSource(strings = {
-          "x",
-          "false",
-          "x^1",
-          "1^x",
-          "random(x,1)",
-          "random(1,x)",
-          "random(99999999,1)",
-          "random(1,99999999)",
-          "abs(x)",
-          "acos(x)",
-          "asin(x)",
-          "atan(x)",
-          "ceil(x)",
-          "cos(x)",
-          "floor(x)",
-          "log(x)",
-          "ln(x)",
-          "max(x,1)",
-          "max(1,x)",
-          "min(x,1)",
-          "min(1,x)",
-          "sin(x)",
-          "sqrt(x)",
-          "tan(x)",
-          "asin(1.5)",
-          "acos(1.5)"
+        "x",
+        "false",
+        "x^1",
+        "1^x",
+        "random(x,1)",
+        "random(1,x)",
+        "random(99999999,1)",
+        "random(1,99999999)",
+        "abs(x)",
+        "acos(x)",
+        "asin(x)",
+        "atan(x)",
+        "ceil(x)",
+        "cos(x)",
+        "floor(x)",
+        "log(x)",
+        "ln(x)",
+        "max(x,1)",
+        "max(1,x)",
+        "min(x,1)",
+        "min(1,x)",
+        "sin(x)",
+        "sqrt(x)",
+        "tan(x)",
+        "asin(1.5)",
+        "acos(1.5)"
     })
     
     public void testExpression(String argument) {
