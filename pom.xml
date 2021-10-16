@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>zav.mc</groupId>
-    <artifactId>math</artifactId>
+    <artifactId>zav.mc.math</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <packaging>bundle</packaging>
 
@@ -169,7 +169,7 @@
         <repository>
             <id>github</id>
             <name>GitHub Zavarov Apache Maven Packages</name>
-            <url>https://maven.pkg.github.com/zavarov/arithmetic-expressions</url>
+            <url>https://maven.pkg.github.com/zavarov/zav.mc.math</url>
         </repository>
     </distributionManagement>
 
@@ -304,10 +304,6 @@
                     <extensions>true</extensions>
                     <configuration>
                         <manifestLocation>META-INF</manifestLocation>
-                        <instructions>
-                            <Bundle-SymbolicName>${project.groupId}.${project.artifactId}</Bundle-SymbolicName>
-                            <Bundle-Version>${project.version}</Bundle-Version>
-                        </instructions>
                     </configuration>
                 </plugin>
                 <!-- MontiCore Generation -->
