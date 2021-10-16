@@ -20,11 +20,6 @@ In order to install this project, simply execute the Maven command:
 ```
 mvn clean install
 ```
-
-## Runtime Dependencies
-
-* [MontiCore Grammar 6.7.0](https://github.com/MontiCore/monticore/tree/6.7.0),
-   MontiCore 3-Level License
    
 ## Built With
 

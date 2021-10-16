@@ -29,6 +29,7 @@
         <maven-source-plugin.version>3.2.1</maven-source-plugin.version>
         <maven-surefire-plugin.version>3.0.0-M5</maven-surefire-plugin.version>
         <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
+        <maven-dependency-plugin.version>3.2.0</maven-dependency-plugin.version>
 
         <!-- .. Misc .......................................................... -->
 
@@ -204,21 +205,17 @@
                 <artifactId>maven-javadoc-plugin</artifactId>
                 <version>${maven-javadoc-plugin.version}</version>
             </plugin>
+            <!-- Dependencies -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>${maven-dependency-plugin.version}</version>
+            </plugin>
             <!-- MontiCore Generation -->
             <plugin>
                 <groupId>de.monticore.mojo</groupId>
                 <artifactId>monticore-maven-plugin</artifactId>
                 <version>${monticore.version}</version>
-                <executions>
-                    <execution>
-                        <configuration>
-                            <script>de/monticore/monticore_noemf.groovy</script>
-                        </configuration>
-                        <goals>
-                            <goal>generate</goal>
-                        </goals>
-                    </execution>
-                </executions>
             </plugin>
         </plugins>
         <pluginManagement>
@@ -277,6 +274,39 @@
                             <id>generate-docs</id>
                             <goals>
                                 <goal>jar</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+                <!-- Dependencies -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-dependency-plugin</artifactId>
+                    <version>${maven-dependency-plugin.version}</version>
+                    <executions>
+                        <execution>
+                            <id>copy-dependencies</id>
+                            <goals>
+                                <goal>copy-dependencies</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                    <configuration>
+                        <includeScope>runtime</includeScope>
+                    </configuration>
+                </plugin>
+                <!-- MontiCore Generation -->
+                <plugin>
+                    <groupId>de.monticore.mojo</groupId>
+                    <artifactId>monticore-maven-plugin</artifactId>
+                    <version>${monticore.version}</version>
+                    <executions>
+                        <execution>
+                            <configuration>
+                                <script>de/monticore/monticore_noemf.groovy</script>
+                            </configuration>
+                            <goals>
+                                <goal>generate</goal>
                             </goals>
                         </execution>
                     </executions>
