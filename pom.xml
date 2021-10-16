@@ -306,8 +306,6 @@
                         <instructions>
                             <Bundle-SymbolicName>${project.groupId}.${project.artifactId}</Bundle-SymbolicName>
                             <Bundle-Version>${project.version}</Bundle-Version>
-                            <Export-Package>zav.mc.math</Export-Package>
-                            <Private-Package>zav.mc.math.*</Private-Package>
                         </instructions>
                     </configuration>
                 </plugin>
