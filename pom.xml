@@ -303,11 +303,12 @@
                     <extensions>true</extensions>
                     <configuration>
                         <manifestLocation>META-INF</manifestLocation>
+                        <excludeDependencies>*;scope=provided|runtime</excludeDependencies>
                         <instructions>
                             <Bundle-SymbolicName>${project.groupId}.${project.artifactId}</Bundle-SymbolicName>
                             <Bundle-Version>${project.version}</Bundle-Version>
-                            <Export-Package>zav.mc.math.*</Export-Package>
-                            <Private-Package>zav.mc.math.internal.*</Private-Package>
+                            <Export-Package>zav.mc.math</Export-Package>
+                            <Private-Package>zav.mc.math.*</Private-Package>
                         </instructions>
                     </configuration>
                 </plugin>

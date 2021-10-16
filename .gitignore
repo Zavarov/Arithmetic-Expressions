@@ -91,3 +91,4 @@ fabric.properties
 **/buildSrc/.gradle
 **/buildSrc/build
 **/buildSrc/src/main/java
+**/META-INF
