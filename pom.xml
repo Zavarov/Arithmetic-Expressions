@@ -12,7 +12,7 @@
 
     <groupId>zav.mc</groupId>
     <artifactId>mc-math</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
     <packaging>bundle</packaging>
 
 
@@ -167,6 +167,26 @@
         </plugins>
         <pluginManagement>
             <plugins>
+                <!-- Grammars -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-jar-plugin</artifactId>
+                    <version>${maven-jar-plugin.version}</version>
+                    <executions>
+                        <execution>
+                            <id>generate-grammars</id>
+                            <phase>package</phase>
+                            <goals>
+                                <goal>jar</goal>
+                            </goals>
+                            <configuration>
+                                <skipIfEmpty>true</skipIfEmpty>
+                                <classifier>${grammars.classifier}</classifier>
+                                <classesDirectory>src/main/grammars</classesDirectory>
+                            </configuration>
+                        </execution>
+                    </executions>
+                </plugin>
                 <!-- OSGi -->
                 <plugin>
                     <groupId>org.apache.felix</groupId>
