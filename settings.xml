@@ -36,15 +36,19 @@
         <repository>
           <id>github</id>
           <name>GitHub Zavarov Apache Maven Packages</name>
-          <url>https://maven.pkg.github.com/zavarov/arithmetic-expressions</url>
+          <url>https://maven.pkg.github.com/zavarov/*</url>
         </repository>
-      </repositories>
     </profile>
   </profiles>
 
   <servers>
     <server>
       <id>github</id>
+      <username>${env.GITHUB_ACCOUNT}</username>
+      <password>${env.GITHUB_TOKEN}</password>
+    </server>
+    <server>
+      <id>parent</id>
       <username>${env.GITHUB_ACCOUNT}</username>
       <password>${env.GITHUB_TOKEN}</password>
     </server>

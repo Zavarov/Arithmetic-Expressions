@@ -4,52 +4,49 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
+    <parent>
+        <groupId>zav.parent</groupId>
+        <artifactId>project</artifactId>
+        <version>1.0.0</version>
+    </parent>
+
     <groupId>zav.mc</groupId>
-    <artifactId>math</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
+    <artifactId>mc-math</artifactId>
+    <version>1.0.0</version>
     <packaging>bundle</packaging>
+
 
     <properties>
         <!-- .. Libraries ..................................................... -->
 
-        <jakarta.inject.version>1.0.3</jakarta.inject.version>
+        <jakarta.inject.version>1.0.5</jakarta.inject.version>
+        <lang3.version>3.12.0</lang3.version>
+        <slf4j.version>1.7.36</slf4j.version>
 
         <!-- Monticore -->
         <monticore.version>6.7.0</monticore.version>
         <monticore.generator.version>7.0.0</monticore.generator.version>
         <grammars.classifier>grammars</grammars.classifier>
 
-        <!-- Test -->
-        <junit.version>5.8.1</junit.version>
-        <assertj.version>3.21.0</assertj.version>
-
-        <!-- .. Plugins......................................................... -->
-
-        <maven-javadoc-plugin.version>3.3.1</maven-javadoc-plugin.version>
-        <maven-jar-plugin.version>3.2.0</maven-jar-plugin.version>
-        <maven-source-plugin.version>3.2.1</maven-source-plugin.version>
-        <maven-surefire-plugin.version>3.0.0-M5</maven-surefire-plugin.version>
-        <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
-        <maven-dependency-plugin.version>3.2.0</maven-dependency-plugin.version>
-        <maven-bundle-plugin.version>5.1.2</maven-bundle-plugin.version>
-
-        <!-- .. Misc .......................................................... -->
-
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-
-        <maven.compiler.source>11</maven.compiler.source>
-        <maven.compiler.target>11</maven.compiler.target>
+        <!-- Resources -->
+        <resource.licenses>${project.build.directory}/generated-resources</resource.licenses>
+        <resource.license>${project.basedir}/LICENSE</resource.license>
+        <resource.notice>${project.basedir}/NOTICE</resource.notice>
     </properties>
 
-    <!-- Fix scopes -->
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>de.monticore</groupId>
-                <artifactId>monticore-runtime</artifactId>
-                <scope>compile</scope>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-lang3</artifactId>
+                <version>${lang3.version}</version>
             </dependency>
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-api</artifactId>
+                <version>${slf4j.version}</version>
+            </dependency>
+            <!-- Fix scopes -->
             <dependency>
                 <groupId>org.antlr</groupId>
                 <artifactId>antlr4-runtime</artifactId>
@@ -58,11 +55,6 @@
             <dependency>
                 <groupId>de.se_rwth.commons</groupId>
                 <artifactId>se-commons-logging</artifactId>
-                <scope>compile</scope>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.commons</groupId>
-                <artifactId>commons-lang3</artifactId>
                 <scope>compile</scope>
             </dependency>
         </dependencies>
@@ -118,32 +110,16 @@
         </dependency>
 
         <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>${lang3.version}</version>
+        </dependency>
+
+        <dependency>
             <groupId>de.monticore</groupId>
             <artifactId>monticore-generator</artifactId>
             <version>${monticore.generator.version}</version>
             <scope>provided</scope>
-        </dependency>
-
-        <!-- Test Dependencies -->
-        <dependency>
-            <groupId>org.assertj</groupId>
-            <artifactId>assertj-core</artifactId>
-            <version>${assertj.version}</version>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter</artifactId>
-            <version>${junit.version}</version>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-params</artifactId>
-            <version>${junit.version}</version>
-            <scope>test</scope>
         </dependency>
     </dependencies>
 
@@ -153,6 +129,12 @@
         <repository>
             <id>se-nexus</id>
             <url>https://nexus.se.rwth-aachen.de/content/groups/public/</url>
+        </repository>
+
+        <repository>
+            <id>parent</id>
+            <name>GitHub Zavarov Apache Maven Packages</name>
+            <url>https://maven.pkg.github.com/zavarov/zav.parent</url>
         </repository>
     </repositories>
 
@@ -177,49 +159,6 @@
 
     <build>
         <plugins>
-            <!-- Classes -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>${maven-compiler-plugin.version}</version>
-            </plugin>
-            <!-- JUnit tests -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <version>${maven-surefire-plugin.version}</version>
-            </plugin>
-            <!-- Grammars -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jar-plugin</artifactId>
-                <version>${maven-jar-plugin.version}</version>
-            </plugin>
-            <!-- Sources -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-source-plugin</artifactId>
-                <version>${maven-source-plugin.version}</version>
-            </plugin>
-            <!-- Javadoc -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-javadoc-plugin</artifactId>
-                <version>${maven-javadoc-plugin.version}</version>
-            </plugin>
-            <!-- Dependencies -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-dependency-plugin</artifactId>
-                <version>${maven-dependency-plugin.version}</version>
-            </plugin>
-            <!-- OSGi -->
-            <plugin>
-                <groupId>org.apache.felix</groupId>
-                <artifactId>maven-bundle-plugin</artifactId>
-                <version>${maven-bundle-plugin.version}</version>
-            </plugin>
-            <!-- MontiCore Generation -->
             <plugin>
                 <groupId>de.monticore.mojo</groupId>
                 <artifactId>monticore-maven-plugin</artifactId>
@@ -228,88 +167,20 @@
         </plugins>
         <pluginManagement>
             <plugins>
-                <!-- Grammars -->
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-jar-plugin</artifactId>
-                    <version>${maven-jar-plugin.version}</version>
-                    <executions>
-                        <execution>
-                            <id>generate-grammars</id>
-                            <phase>package</phase>
-                            <goals>
-                                <goal>jar</goal>
-                            </goals>
-                            <configuration>
-                                <skipIfEmpty>true</skipIfEmpty>
-                                <classifier>${grammars.classifier}</classifier>
-                                <classesDirectory>src/main/grammars</classesDirectory>
-                            </configuration>
-                        </execution>
-                    </executions>
-                </plugin>
-                <!-- Sources -->
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-source-plugin</artifactId>
-                    <version>${maven-source-plugin.version}</version>
-                    <executions>
-                        <execution>
-                            <id>generate-sources</id>
-                            <goals>
-                                <goal>jar</goal>
-                            </goals>
-                        </execution>
-                    </executions>
-                </plugin>
-                <!-- Javadoc -->
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-javadoc-plugin</artifactId>
-                    <version>${maven-javadoc-plugin.version}</version>
-                    <configuration>
-                        <javadocExecutable>${java.home}/bin/javadoc</javadocExecutable>
-                    </configuration>
-                    <executions>
-                        <execution>
-                            <id>generate-docs</id>
-                            <goals>
-                                <goal>jar</goal>
-                            </goals>
-                        </execution>
-                    </executions>
-                </plugin>
-                <!-- Dependencies -->
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-dependency-plugin</artifactId>
-                    <version>${maven-dependency-plugin.version}</version>
-                    <executions>
-                        <execution>
-                            <id>copy-dependencies</id>
-                            <goals>
-                                <goal>copy-dependencies</goal>
-                            </goals>
-                        </execution>
-                    </executions>
-                    <configuration>
-                        <includeScope>runtime</includeScope>
-                    </configuration>
-                </plugin>
                 <!-- OSGi -->
                 <plugin>
                     <groupId>org.apache.felix</groupId>
                     <artifactId>maven-bundle-plugin</artifactId>
-                    <version>${maven-bundle-plugin.version}</version>
                     <extensions>true</extensions>
                     <configuration>
                         <manifestLocation>META-INF</manifestLocation>
+                        <excludeDependencies>true</excludeDependencies>
                         <instructions>
-                            <Bundle-SymbolicName>${project.groupId}.${project.artifactId}</Bundle-SymbolicName>
+                            <Include-Resource>${resource.licenses},${resource.license},${resource.notice}</Include-Resource>
                         </instructions>
                     </configuration>
                 </plugin>
-                <!-- MontiCore Generation -->
+                <!-- Code Generation -->
                 <plugin>
                     <groupId>de.monticore.mojo</groupId>
                     <artifactId>monticore-maven-plugin</artifactId>
@@ -324,6 +195,25 @@
                             </goals>
                         </execution>
                     </executions>
+                </plugin>
+                <!-- Licenses -->
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>license-maven-plugin</artifactId>
+                    <executions>
+                        <execution>
+                            <id>download-licenses</id>
+                            <phase>generate-resources</phase>
+                            <goals>
+                                <goal>download-licenses</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                    <configuration>
+                        <cleanLicensesOutputDirectory>true</cleanLicensesOutputDirectory>
+                        <licensesConfigFile>${project.basedir}/license.xml</licensesConfigFile>
+                        <includedScopes>compile</includedScopes>
+                    </configuration>
                 </plugin>
             </plugins>
         </pluginManagement>
