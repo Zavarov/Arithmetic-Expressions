@@ -132,9 +132,9 @@
         </repository>
 
         <repository>
-            <id>parent</id>
+            <id>github</id>
             <name>GitHub Zavarov Apache Maven Packages</name>
-            <url>https://maven.pkg.github.com/zavarov/zav.parent</url>
+            <url>https://maven.pkg.github.com/zavarov/*</url>
         </repository>
     </repositories>
 
