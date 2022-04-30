@@ -58,7 +58,7 @@ public abstract class AbstractTest {
   }
 
   public static Optional<BigDecimal> valueOfOpt(String expression) {
-    return ArithmeticExpressionsValueCalculator.valueOf(parse(expression));
+    return ArithmeticExpressionsValueCalculator.valueOf(expression);
   }
   
   /**

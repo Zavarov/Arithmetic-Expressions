@@ -18,10 +18,12 @@ package zav.mc.math;
 
 import de.monticore.ast.ASTNode;
 import de.monticore.expressions.expressionsbasis._ast.ASTExpression;
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
+import zav.mc.math._parser.MathParser;
 import zav.mc.math._visitor.MathTraverserImplementation;
 import zav.mc.math.internal.calculator.FunctionValueCalculator;
 import zav.mc.math.internal.calculator.MathematicalConstantValueCalculator;
@@ -70,6 +72,23 @@ public class ArithmeticExpressionsValueCalculator extends MathTraverserImplement
       expression.accept(calculator);
       return calculator.getValue(expression);
     } catch (IllegalArgumentException e) {
+      return Optional.empty();
+    }
+  }
+  
+  /**
+   * Evaluates the numerical value of the expression.<br>
+   * Returns {@link Optional#empty()} if the expression couldn't be evaluated.
+   *
+   * @param expression the arithmetic expression that is going to be evaluated.
+   * @return the value of the expression.
+   */
+  public static Optional<BigDecimal> valueOf(String expression) {
+    try {
+      MathParser parser = new MathParser();
+      Optional<ASTExpression> ast = parser.parse_String(expression);
+      return ast.flatMap(ArithmeticExpressionsValueCalculator::valueOf);
+    } catch (IOException e) {
       return Optional.empty();
     }
   }
